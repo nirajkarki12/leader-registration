@@ -1,0 +1,109 @@
+<div class="animated fadeIn">
+   <!--/.row-->
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="card">
+            <div class="card-header">
+            <i class="fa fa-edit"></i>Search Form
+            <div class="card-header-actions">
+               <button type="button" class="card-header-action btn btn-link btn-minimize" (click)="toggleCollapse()"><i class={{iconCollapse}}></i></button>
+            </div>
+            </div>
+            <div [collapse]="isCollapsed" class="card-body">
+               <form class="form-horizontal">
+                  <div class="row">
+                     <div class="col-sm-4">
+                        <div class="form-group">
+                           <label class="col-form-label" for="name">Full Name</label>
+                           <input debounce [delay]="delay" [(ngModel)]="filterParam.name" (func)="fetchLeaders()" [ngModelOptions]="{standalone: true}" placeholder="name" id="name" class="form-control" size="16" type="text">
+                        </div>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="form-group">
+                           <label class="col-form-label" for="mobileNumber">Mobile Number</label>
+                           <input debounce [delay]="delay" [(ngModel)]="filterParam.mobileNumber" (func)="fetchLeaders()" [ngModelOptions]="{standalone: true}" placeholder="mobile number" id="mobileNumber" class="form-control" size="16" type="text">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <div class="form-actions">
+                           <button class="btn btn-secondary" (click)="resetFilterParam()" type="button">Reset</button>
+                        </div>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div> <!--/.col-->
+   </div><!--/.row-->
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="card">
+            <div class="card-header">
+               <i class="fa fa-align-justify"></i> Leaders List
+            </div>
+            <app-loading *ngIf="!leaders || loading"></app-loading>
+            <div *ngIf="leaders ?.length > 0; then tableData; else noRecordsFound"></div>
+            <ng-template #tableData>
+               <div class="card-body">
+                  <table class="table table-striped">
+                     <thead>
+                        <tr>
+                           <th style="width: 10px">#</th>
+                           <th>Full Name</th>
+                           <th>Address</th>
+                           <th>Gender</th>
+                           <th>Mobile Number</th>
+                           <th>Email</th>
+                           <th>Image</th>
+                           <th>Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngFor="let leader of leaders; let index = index">
+                           <td>{{ index + 1 + ((paginate.current_page - 1) * paginate.per_page) }}</td>
+                           <td>{{ leader.name }}</td>
+                           <td>{{ leader.address }}</td>
+                           <td>{{ leader.gender }}</td>
+                           <td>{{ leader.number }}</td>
+                           <td>{{ leader.email }}</td>
+                           <td><img *ngIf="leader.image" width="30px" src="{{ leader.image }}"></td>
+                           <td>
+                              <a [routerLink]="['/leader/edit', leader.id]" [queryParams]="{returnPage: paginate.current_page}" title="Edit"><i class="fa fa-edit fa-lg"></i></a>
+                           </td>
+                        </tr>
+                     </tbody>
+                     <tfoot *ngIf="paginate.total > paginate.per_page">
+                        <tr>
+                           <td colspan="7">
+                              <pagination
+                                 [boundaryLinks]="true"
+                                 [rotate]="true"
+                                 [directionLinks]="true"
+                                 [totalItems]="paginate.total"
+                                 [(ngModel)]="paginate.current_page"
+                                 [itemsPerPage]="paginate.per_page"
+                                 [maxSize]="5"
+                                 previousText="&lsaquo;&lsaquo;"
+                                 nextText="&rsaquo;&rsaquo;"
+                                 (pageChanged)="fetchLeaders($event.page)"
+                                 >
+                              </pagination>
+                           </td>
+                        </tr>
+                     </tfoot>
+                  </table>
+               </div>
+            </ng-template>
+         </div>
+      </div>
+      <!--/.col-->
+   </div>
+   <!--/.row-->
+<!-- No records found -->
+<ng-template #noRecordsFound>
+   <app-no-records-found></app-no-records-found>
+</ng-template>
+</div>
+   

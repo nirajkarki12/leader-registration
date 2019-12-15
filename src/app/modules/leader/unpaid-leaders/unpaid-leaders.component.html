@@ -1,0 +1,64 @@
+<div class="animated fadeIn">
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="card">
+            <div class="card-header">
+               <i class="fa fa-align-justify"></i> Unpaid Leaders
+            </div>
+            <app-loading *ngIf="!leaders || loading"></app-loading>
+            <div *ngIf="leaders ?.length > 0; then tableData; else noRecordsFound"></div>
+            <ng-template #tableData>
+               <div class="card-body">
+                  <table class="table table-striped">
+                     <thead>
+                        <tr>
+                           <th style="width: 10px">#</th>
+                           <th>Name</th>
+                           <th>Address</th>
+                           <th>Gender</th>
+                           <th>Mobile Number</th>
+                           <th>Email</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngFor="let leader of leaders; let index = index">
+                           <td>{{ index + 1 + ((paginate.current_page - 1) * paginate.per_page)  }}</td>
+                           <td>{{ leader.name }}</td>
+                           <td>{{ leader.address }}</td>
+                           <td>{{ leader.gender }}</td>
+                           <td>{{ leader.number }}</td>
+                           <td>{{ leader.email }}</td>
+                        </tr>
+                     </tbody>
+                     <tfoot *ngIf="paginate.total > paginate.per_page">
+                        <tr>
+                           <td colspan="7">
+                              <pagination
+                                 [boundaryLinks]="true"
+                                 [rotate]="true"
+                                 [directionLinks]="true"
+                                 [totalItems]="paginate.total"
+                                 [(ngModel)]="paginate.current_page"
+                                 [itemsPerPage]="paginate.per_page"
+                                 [maxSize]="5"
+                                 previousText="&lsaquo;&lsaquo;"
+                                 nextText="&rsaquo;&rsaquo;"
+                                 (pageChanged)="fetchLeaders($event.page)"
+                                 >
+                              </pagination>
+                           </td>
+                        </tr>
+                     </tfoot>
+                  </table>
+               </div>
+            </ng-template>
+         </div>
+      </div>
+      <!--/.col-->
+   </div>
+   <!--/.row-->
+<!-- No records found -->
+<ng-template #noRecordsFound>
+   <app-no-records-found></app-no-records-found>
+</ng-template>
+</div>
