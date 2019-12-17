@@ -17,3 +17,15 @@ app-login{
    padding: 0;
    list-style-position: inside;
 }
+
+.action-icons{
+   border-radius: 5px;
+   padding: 0 8px;
+}
+.action-icons img {
+   width: 20px;
+}
+
+.btn-action {
+   text-align: right;
+}

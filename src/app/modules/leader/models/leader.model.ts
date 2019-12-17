@@ -6,4 +6,6 @@ export class Leader {
    number: string;
    gender: string;
    image: string;
+   payment_status?: string;
+   registration_code?: string;
 }

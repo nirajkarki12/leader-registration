@@ -55,18 +55,26 @@
                      </span>
                   </div>
                </div><!--/.row-->
-               <div class="form-group">
-                  <div class="row">
-                     <div class="col-lg-6">
-                        <label for="image">Image</label>
-                        <div class="col-md-12">
-                           <input type="file" id="image" (change)="uploadPicture()" #fileInput accept="image/x-png,image/gif,image/jpeg,image/jpg">
-                        </div>
+               <div class="row">
+                  <div class="form-group col-sm-2">
+                     <label for="payment_status">Payment</label>
+                     <select class="form-control" id="payment_status" formControlName="payment_status">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                     </select>
+                     <span *ngIf="leaderForm.get('gender').errors && (leaderForm.get('gender').dirty || leaderForm.get('gender').touched)">
+                        <span class="help-block text-red" *ngIf="leaderForm.get('gender').errors.required">Gender is required</span>
+                     </span>
+                  </div>
+                  <div class="col-lg-5">
+                     <label for="image">Image</label>
+                     <div class="col-md-12">
+                        <input type="file" id="image" (change)="uploadPicture()" #fileInput accept="image/x-png,image/gif,image/jpeg,image/jpg">
                      </div>
-                     <div class="col-lg-6">
-                        <div class="logo">
-                           <img *ngIf="leader.image" src="{{ leader.image }}" width="200">
-                        </div>
+                  </div>
+                  <div class="col-lg-5">
+                     <div class="logo">
+                        <img *ngIf="leader.image" src="{{ leader.image }}" width="200">
                      </div>
                   </div>
                </div>

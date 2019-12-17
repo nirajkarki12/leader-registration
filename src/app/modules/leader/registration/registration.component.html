@@ -55,10 +55,24 @@
                      </span>
                   </div>
                </div><!--/.row-->
-               <div class="form-group">
-                  <label for="logo">Image</label>
-                  <div class="col-md-12">
-                     <input type="file" id="logo" (change)="uploadPicture()" #fileInput accept="image/x-png,image/gif,image/jpeg,image/jpg" formControlName="image">
+               <div class="row">
+                  <div class="form-group col-sm-2">
+                     <label for="payment_status">Payment</label>
+                     <select class="form-control" id="payment_status" formControlName="payment_status">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                     </select>
+                     <span *ngIf="leaderForm.get('gender').errors && (leaderForm.get('gender').dirty || leaderForm.get('gender').touched)">
+                        <span class="help-block text-red" *ngIf="leaderForm.get('gender').errors.required">Gender is required</span>
+                     </span>
+                  </div>
+                  <div class="form-group col-sm-10">
+                     <div class="form-group">
+                        <label for="logo">Image</label>
+                        <div class="col-md-12">
+                           <input type="file" id="logo" (change)="uploadPicture()" #fileInput accept="image/x-png,image/gif,image/jpeg,image/jpg" formControlName="image">
+                        </div>
+                     </div>
                   </div>
                </div>
                <div class="form-actions">

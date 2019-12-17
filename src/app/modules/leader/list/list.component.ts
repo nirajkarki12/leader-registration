@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/public_api';
 import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import * as KhaltiCheckout from 'khalti-web';
 // Models
 import { Paginate } from 'src/app/modules/shared/models/paginate.model';
 import { Leader } from '../models/leader.model';
@@ -22,8 +24,7 @@ export class ListComponent implements OnInit {
   sub: Subscription;
   filterParam = new LeaderSearchParam();
   delay = 500;
-
-
+  config;
   isCollapsed: boolean = true;
   iconCollapse: string = 'icon-arrow-up';
 
@@ -34,7 +35,7 @@ export class ListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private leaderService: LeaderService,
+    public leaderService: LeaderService,
     private toastr: ValidatorMessageService
   ) { }
 
@@ -43,6 +44,40 @@ export class ListComponent implements OnInit {
       this.paginate.current_page = params['page'] || 1;
       this.fetchLeaders(this.paginate.current_page);
     });
+  }
+
+  khaltiPay(leader: Leader) {
+    if (confirm('Pay ' + leader.name  + '\'s charge on Khalti?')) {
+      this.config = {
+        // replace this key with yours
+        'publicKey': 'test_public_key_d14da60ce2f74a6b806c7648288e857b',
+        'productIdentity': leader.registration_code,
+        'productName': 'Audition Form',
+        'productUrl': 'http://gundruknetwork.com/the_leader_audition',
+      };
+      const _this = this;
+      const _leader = leader;
+      this.config.eventHandler = {
+          onSuccess (payload) {
+            // hit merchant api for initiating verfication
+            console.log(payload);
+            _this.khaltiVerify(payload, _leader);
+          },
+      };
+      const checkout = new KhaltiCheckout(this.config);
+      checkout.show({amount: 1000 * 100, mobile: leader.number});
+    }
+  }
+
+  khaltiVerify(paylod, leader) {
+    this.leaderService
+      .khaltiVerify({'payload': paylod, 'leader': leader})
+      .then(successResponse => {
+        console.log(successResponse);
+      })
+      .catch(errorResponse => {
+        console.log(errorResponse);
+      });
   }
 
   fetchLeaders(pageNo = 1) {

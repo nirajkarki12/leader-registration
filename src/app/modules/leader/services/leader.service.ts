@@ -27,6 +27,18 @@ export class LeaderService {
     .catch(this.handleError);
   }
 
+  khaltiVerify(payload) {
+    return this.http.post(
+      ApiConstants.API_ENDPOINT +
+      ApiConstants.ADMIN +
+      ApiConstants.V1 + '/payment/khalti'
+      , payload ,
+      { observe: 'response'} )
+    .toPromise()
+    .then(this.handleSuccess)
+    .catch(this.handleError);
+  }
+
   unpaidLeaders(pageNo: Number): Promise<any> {
     return this.http.get(
       ApiConstants.API_ENDPOINT +
@@ -48,6 +60,7 @@ export class LeaderService {
     input.append('email', leaderModel.email);
     input.append('number', leaderModel.number);
     input.append('address', leaderModel.address);
+    input.append('payment_status', leaderModel.payment_status);
 
     if (image) {
       input.append('image', image);
@@ -89,6 +102,7 @@ export class LeaderService {
     input.append('email', leaderModel.email);
     input.append('number', leaderModel.number);
     input.append('address', leaderModel.address);
+    input.append('payment_status', leaderModel.payment_status);
 
     if (image) {
       input.append('image', image);

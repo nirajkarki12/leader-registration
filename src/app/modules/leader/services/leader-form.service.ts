@@ -22,6 +22,7 @@ export class LeaderFormService {
         email: [leader.email, [Validators.required, CustomValidators.email]],
         number: [leader.number, [Validators.required, CustomValidators.number, Validators.minLength(10), Validators.maxLength(10)]],
         address: [leader.address, [Validators.required]],
+        payment_status: [leader.payment_status, [Validators.required]],
         image: [leader.image],
       });
   }

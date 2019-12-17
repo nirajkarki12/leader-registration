@@ -56,8 +56,9 @@
                            <th>Gender</th>
                            <th>Mobile Number</th>
                            <th>Email</th>
+                           <th>Registration Code</th>
                            <th>Image</th>
-                           <th>Action</th>
+                           <th width="10%">Action</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -68,9 +69,15 @@
                            <td>{{ leader.gender }}</td>
                            <td>{{ leader.number }}</td>
                            <td>{{ leader.email }}</td>
+                           <td>{{ (leader.payment_status === 1) ? leader.registration_code : '-' }}</td>
                            <td><img *ngIf="leader.image" width="30px" src="{{ leader.image }}"></td>
-                           <td>
+                           <td class="btn-action">
+                              <button *ngIf="leader.payment_status === 0" (click)="khaltiPay(leader)" class="action-icons">
+                                 <img src="assets/images/khalti.png" class="img-responsive">
+                              </button>
+                              &nbsp;
                               <a [routerLink]="['/leader/edit', leader.id]" [queryParams]="{returnPage: paginate.current_page}" title="Edit"><i class="fa fa-edit fa-lg"></i></a>
+
                            </td>
                         </tr>
                      </tbody>
