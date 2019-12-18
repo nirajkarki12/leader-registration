@@ -85,7 +85,6 @@ export class ListComponent implements OnInit {
     this.leaderService
       .leadersList(pageNo, this.filterParam)
       .then(successResponse => {
-        console.log('abc', successResponse);
         this.loading = false;
         this.paginate = successResponse.body.data;
         this.leaders = this.paginate.data;
