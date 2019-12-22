@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "kbc-frontend": {
+    "leader-registration": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/kbc-frontend",
+            "outputPath": "dist/leader-registration",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "kbc-frontend:build"
+            "browserTarget": "leader-registration:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "kbc-frontend:build:production"
+              "browserTarget": "leader-registration:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "kbc-frontend:build"
+            "browserTarget": "leader-registration:build"
           }
         },
         "test": {
@@ -128,7 +128,7 @@
       }
     }
   },
-  "defaultProject": "kbc-frontend",
+  "defaultProject": "leader-registration",
   "cli": {
     "analytics": false
   }
