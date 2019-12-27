@@ -33,7 +33,7 @@ export class ProfileService {
   }
 
   getAndSyncProfileDetail() {
-    this.http.get<any>(ApiConstants.API_ENDPOINT + ApiConstants.ADMIN + ApiConstants.V1 + ApiConstants.AUTH + '-user')
+    this.http.get<any>(ApiConstants.API_ENDPOINT + ApiConstants.ADMIN + ApiConstants.V1 + ApiConstants.AUTH + ApiConstants.USER)
       .subscribe(
         (successResponse) => {
           this.profileDetail = successResponse.data;

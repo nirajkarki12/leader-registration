@@ -13,6 +13,9 @@ export class ValidatorMessageService {
       if (jsonMessages.hasOwnProperty('error')) {
         this.toastr.error(jsonMessages.error.message);
       } else {
+        if (jsonMessages === 'Token has expired and can no longer be refreshed') {
+          jsonMessages = 'Session Timeout, Please login to continue';
+        }
         this.toastr.error(jsonMessages);
       }
     } else {

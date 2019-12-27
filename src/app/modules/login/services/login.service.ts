@@ -16,6 +16,7 @@ export class LoginService {
       ApiConstants.API_ENDPOINT +
       ApiConstants.ADMIN +
       ApiConstants.V1 +
+      ApiConstants.AUTH +
       ApiConstants.LOGIN
       , userLoginModel,
       { observe: 'response'} )
